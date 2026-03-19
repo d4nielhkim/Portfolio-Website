@@ -1,5 +1,5 @@
 {
-  "name": "Copy of Daniel Hakim Portfolio",
-  "description": "A terminal-themed portfolio website for Daniel Hakim, featuring keyboard navigation and ASCII art.",
+  "name": "Daniel Hakim Terminal Portfolio",
+  "description": "A real terminal-based portfolio application using Ink, designed for SSH environments with keyboard navigation.",
   "requestFramePermissions": []
 }
