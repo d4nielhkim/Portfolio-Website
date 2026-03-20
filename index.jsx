@@ -120,7 +120,7 @@ const CONTENT = {
   }
 };
 
-const App = () => {
+export const App = () => {
   const [activeTab, setActiveTab] = useState('menu');
   const { exit } = useApp();
 

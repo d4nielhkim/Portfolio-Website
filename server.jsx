@@ -1,0 +1,44 @@
+import React from 'react';
+import { render } from 'ink';
+import ssh2 from 'ssh2';
+const { Server } = ssh2;
+import { readFileSync } from 'fs';
+// This grabs your Portfolio from the other file
+import { App } from './index.jsx'; 
+
+const hostKey = readFileSync('host.key');
+
+const server = new Server({ hostKeys: [hostKey] }, (client) => {
+  client.on('authentication', (ctx) => {
+    // This allows anyone to enter without a password
+    ctx.accept(); 
+  }).on('ready', () => {
+    client.on('session', (accept) => {
+      const session = accept();
+      session.on('pty', (accept) => accept && accept());
+      session.on('shell', (accept) => {
+        const stream = accept();
+        stream.isTTY = true;
+        stream.setRawMode = (mode) => { /* SSH handles this, we just need to satisfy Ink */ };
+        stream.ref = () => {};
+        stream.unref = () => {};
+
+        // Renders your Ink UI to the user's terminal stream
+        const { waitUntilExit } = render(<App />, {
+          stdin: stream,
+          stdout: stream,
+          exitOnCtrlC: true,
+          patchConsole: false
+        });
+
+        waitUntilExit().then(() => stream.end());
+        stream.on('close', () => stream.end());
+      });
+    });
+  });
+});
+
+// Listen on port 2222 to avoid clashing with your main SSH
+server.listen(2222, '0.0.0.0', () => {
+  console.log('🚀 Portfolio Server is LIVE on port 2222');
+});
