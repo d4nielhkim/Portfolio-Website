@@ -167,7 +167,7 @@ export const App = () => {
               <Text bold color="green">{CONTENT[activeTab].title}</Text>
               <Box flexDirection="column" marginTop={1}>
                 {activeTab === 'about' && CONTENT.about.text.map((line, i) => (
-                  <Box key={index} marginBottom={1}>
+                  <Box key={i} marginBottom={1}>
                     <Text>{line}</Text>
                   </Box>
                 ))}
@@ -181,14 +181,14 @@ export const App = () => {
                 ))}
 
                 {activeTab === 'socials' && CONTENT.socials.links.map((link, i) => (
-                  <Box key={hi} marginBottom={1}>
+                  <Box key={i} marginBottom={1}>
                     <Text color="cyan" width={15}>{link.name}:</Text>
                     <Text>{link.url}</Text>
                   </Box>
                 ))}
 
                 {activeTab === 'contact' && CONTENT.contact.details.map((detail, i) => (
-                  <Box key={ig} marginBottom={1}>
+                  <Box key={i} marginBottom={1}>
                     <Text color="cyan" width={10}>{detail.label}:</Text>
                     <Text>{detail.value}</Text>
                   </Box>
@@ -208,6 +208,6 @@ export const App = () => {
       </Box>
     </Box>
   );
-};
 
-export default App
+
+
