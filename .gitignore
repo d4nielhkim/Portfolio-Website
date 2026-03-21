@@ -3,4 +3,4 @@ id_rsa
 id_rsa.pub
 .cache/
 npm-debug.log*
-
+.env
